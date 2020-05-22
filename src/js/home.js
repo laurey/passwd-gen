@@ -2,13 +2,22 @@ import "../style/normal.css";
 import "../style/index.less";
 
 const resultEl = document.getElementById("result");
-const lengthEl = document.getElementById("length");
-const uppercaseEl = document.getElementById("uppercase");
-const lowercaseEl = document.getElementById("lowercase");
-const numbersEl = document.getElementById("numbers");
-const symbolsEl = document.getElementById("symbols");
-const generateEl = document.getElementById("generate");
 const clipboard = document.getElementById("clipboard");
+const generateEl = document.getElementById("generate");
+const modeEl = document.getElementsByName("mode");
+
+const basicContainer = document.getElementById("basic-panel");
+const lengthEl = basicContainer.querySelector("#length");
+const uppercaseEl = basicContainer.querySelector("#uppercase");
+const lowercaseEl = basicContainer.querySelector("#lowercase");
+const numbersEl = basicContainer.querySelector("#numbers");
+const symbolsEl = basicContainer.querySelector("#symbols");
+
+const advanceContainer = document.getElementById("advance-panel");
+const minLengthEl = advanceContainer.querySelector("#min_length");
+const maxLengthEl = advanceContainer.querySelector("#max_length");
+const allow_duplicate = advanceContainer.querySelector("#allow_duplicate");
+const disallowEl = advanceContainer.querySelector("#disallow_duplicate");
 
 const randomFunc = {
   lower: getRandomLower,
@@ -16,6 +25,8 @@ const randomFunc = {
   number: getRandomNumber,
   symbol: getRandomSymbol,
 };
+
+let mode = "1";
 
 clipboard.addEventListener("click", () => {
   const textarea = document.createElement("textarea");
@@ -30,23 +41,26 @@ clipboard.addEventListener("click", () => {
   textarea.select();
   document.execCommand("copy");
   textarea.remove();
-  alert("Password copied to clipboard");
+});
+
+Array.prototype.forEach.call(modeEl, function (radio) {
+  radio.addEventListener("change", function () {
+    const value = this.value;
+    mode = value;
+    if (value === "2") {
+      basicContainer.classList.add('hide');
+      advanceContainer.classList.remove('hide');
+    } else {
+      basicContainer.classList.remove('hide');
+      advanceContainer.classList.add('hide');
+    }
+  });
 });
 
 generateEl.addEventListener("click", () => {
-  const length = +lengthEl.value;
-  const hasLower = lowercaseEl.checked;
-  const hasUpper = uppercaseEl.checked;
-  const hasNumber = numbersEl.checked;
-  const hasSymbol = symbolsEl.checked;
-
-  resultEl.innerText = generatePassword(
-    hasLower,
-    hasUpper,
-    hasNumber,
-    hasSymbol,
-    length
-  );
+  if (mode === "1") {
+    basicPasswdGenerator();
+  }
 });
 
 lengthEl.addEventListener("change", function(e) {
@@ -94,4 +108,26 @@ function getRandomNumber() {
 function getRandomSymbol() {
   const symbols = "!@#$%^&*(){}[]=<>/,.";
   return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+// basic method
+function basicPasswdGenerator() {
+  const hasLower = lowercaseEl.checked;
+  const hasUpper = uppercaseEl.checked;
+  const hasNumber = numbersEl.checked;
+  const hasSymbol = symbolsEl.checked;
+  const length = +lengthEl.value;
+
+ resultEl.innerText = generatePassword(
+   hasLower,
+   hasUpper,
+   hasNumber,
+   hasSymbol,
+   length
+ ); 
+}
+
+// advance method
+function advanceGenerator({chars, pattern, min_length, max_length}) {
+  
 }

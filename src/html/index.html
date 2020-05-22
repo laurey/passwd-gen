@@ -1,49 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
-  <title>Random Password Generator Demo</title>
+  <meta name="format-detection" content="telephone=no" />
+  <title>Generator Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
-<body>
-  <div class="container">
+
+<body class="flex">
+  <div class="container" id="app">
     <h2>Random Password Generator</h2>
     <div class="result-container">
-      <span id="result"></span>
-      <button class="btn" id="clipboard">
+      <span id="result" class="result"></span>
+      <button class="clip-btn" id="clipboard" title="Click to copy" aria-label="CopyBtn">
         <i class="far fa-clipboard"></i>
       </button>
     </div>
-    <div class="settings">
-      <div class="setting">
-        <label>Length: <span id="len">10</span></label>
-        <div>
-          <span>7</span>
-          <input type="range" id="length" min="7" max="36" value="10"  />
-          <span>36</span>
+    <div class="setting-container flex">
+      <div class="item flex">
+        <label>Mode: </label>
+        <div class="item flex">
+          <input type="radio" name="mode" id="basic" checked value="1" />
+          <label for="basic">Basic</label>
+        </div>
+        <div class="item flex">
+          <input type="radio" name="mode" id="advance" value="2" />
+          <label for="advance">Advance</label>
         </div>
       </div>
-      <div class="setting">
-        <label>Include uppercase:</label>
-        <input type="checkbox" id="uppercase" checked />
+      <div class="basic-panel flex" id="basic-panel">
+        <div class="item flex">
+          <label>Length: <span id="len" class="len-result">10</span></label>
+          <div class="length-item flex">
+            <span>7</span>
+            <input type="range" id="length" min="7" max="36" value="10" />
+            <span>36</span>
+          </div>
+        </div>
+        <div class="item flex">
+          <label>Include uppercase:</label>
+          <input type="checkbox" id="uppercase" checked />
+        </div>
+        <div class="item flex">
+          <label>Include lowercase:</label>
+          <input type="checkbox" id="lowercase" checked />
+        </div>
+        <div class="item flex">
+          <label>Include numbers:</label>
+          <input type="checkbox" id="numbers" checked />
+        </div>
+        <div class="item flex">
+          <label>Include symbols:</label>
+          <input type="checkbox" id="symbols" checked />
+        </div>
       </div>
-      <div class="setting">
-        <label>Include lowercase:</label>
-        <input type="checkbox" id="lowercase" checked />
-      </div>
-      <div class="setting">
-        <label>Include numbers:</label>
-        <input type="checkbox" id="numbers" checked />
-      </div>
-      <div class="setting">
-        <label>Include symbols:</label>
-        <input type="checkbox" id="symbols" checked />
+      <div class="advance-panel flex hide" id="advance-panel">
+        <div class="item flex">
+          <label>Password Pattern</label>
+          <input type="text" id="ptn" placeholder="Please input pattern" />
+        </div>
+        <div class="item flex">
+          <label>Min. length</label>
+          <input type="number" id="min_length" min="7" max="20" value="7" />
+        </div>
+        <div class="item flex">
+          <label>Max. length</label>
+          <input type="number" id="max_length" min="7" max="20" value="10" />
+        </div>
+        <div class="item flex">
+          <label>Allow duplicates</label>
+          <label>
+            <input type="radio" name="duplicate" id="allow_duplicate" value="yes" />YES
+          </label>
+          <label>
+            <input type="radio" name="duplicate" id="disallow_duplicate" checked value="no" />NO
+          </label>
+        </div>
+        <div class="item flex">
+          <label>Custom characters</label>
+          <input type="text" id="customs" placeholder="Input some characters" />
+        </div>
       </div>
     </div>
-    <button class="btn btn-large" id="generate">
+    <button class="btn btn-large btn-radius" id="generate">
       Generate
     </button>
   </div>
 </body>
+
 </html>

@@ -12,20 +12,17 @@ module.exports = (env) => {
   return {
     mode: devMode ? "development" : "production",
     entry: {
-      home: "./src/js/home.js",
+      app: "./src/js/app.js",
     },
     optimization: {
       minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
     output: {
-      // publicPath: "/",
-      // hashDigestLength: 16,
       filename: devMode ? "[name].[hash:7].js" : "[name].[hash:10].js",
       path: resolve(__dirname, "dist"),
     },
     devtool: devMode ? "inline-source-map" : "source-map",
     devServer: {
-      // publicPath: "/",
       compress: true,
       watchContentBase: true,
       contentBase: join(__dirname, "dist"),
@@ -94,15 +91,10 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        // chunks: ["home"],
         filename: "index.html",
         template: "./src/html/index.html",
       }),
-      // new HtmlWebpackPlugin({
-      //   chunks: ["app"],
-      //   filename: "app.html",
-      //   template: "src/html/app.html",
-      // }),
+
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional

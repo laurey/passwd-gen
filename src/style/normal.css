@@ -1,0 +1,43 @@
+html {
+  margin: 0 auto;
+}
+
+.body {
+  font: 24px bold;
+  color: green;
+}
+
+a {
+  cursor: pointer;
+  color: #2086d7;
+  text-decoration: underline;
+}
+
+.default-width {
+  width: 100px;
+  height: 100px;
+  background-color: bisque;
+}
+
+.twice-size {
+  width: 200px;
+  height: 200px;
+}
+
+.twice-size-width {
+  width: 200px;
+}
+
+.twice-size-width-bg {
+  width: 100px;
+  height: 100px;
+  background-color: chocolate;
+}
+
+.animated-width {
+  transition: width 4s ease-in;
+}
+
+.animated-all {
+  transition: all 5s ease-in-out;
+}

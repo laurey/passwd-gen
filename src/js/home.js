@@ -1,5 +1,5 @@
-import "./style/normal.css";
-import "./style/index.less";
+import "../style/normal.css";
+import "../style/index.less";
 
 const resultEl = document.getElementById("result");
 const lengthEl = document.getElementById("length");

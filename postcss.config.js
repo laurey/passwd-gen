@@ -1,5 +1,5 @@
 module.exports = {
-  // parser: "sugarss",
+  // parser: file.extname === ".sss" ? "sugarss" : false,
   plugins: {
     // "postcss-import": {},
     // "postcss-preset-env": {},

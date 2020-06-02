@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Webpack dev server",
+      "name": "Launch-via-Webpack-dev-server",
       "skipFiles": [
         "<node_internals>/**"
       ],

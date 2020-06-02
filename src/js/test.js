@@ -1,4 +1,4 @@
 import "../style/normal.css";
 import "../style/test.less";
 
-console.log('test');
+console.log('test-1');

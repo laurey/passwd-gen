@@ -13,9 +13,33 @@ module.exports = (env) => {
     mode: devMode ? "development" : "production",
     entry: {
       home: "./src/js/home.js",
+      test: "./src/js/test.js",
+      // home: resolve(__dirname, 'src/js/home'),
+      // test: resolve(__dirname, 'src/js/test'),
     },
     optimization: {
       minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      splitChunks: {
+        cacheGroups: {
+          // vendor: {
+          //   test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          //   name: 'vendor',
+          //   chunks: 'all',
+          // },
+          // commons: {
+          //   name: 'commons',
+          //   chunks: 'initial',
+          //   minChunks: 2
+          // },
+          styles: {
+            name: "styles",
+            test: /\.css$/,
+            chunks: "all",
+            // filename: "js/[name].[hash:10].bundle.js",
+            enforce: true,
+          },
+        },
+      },
     },
     output: {
       // publicPath: "/",
@@ -26,6 +50,7 @@ module.exports = (env) => {
     devtool: devMode ? "inline-source-map" : "source-map",
     devServer: {
       // publicPath: "/",
+      // hot: false,
       compress: true,
       watchContentBase: true,
       contentBase: join(__dirname, "dist"),
@@ -94,15 +119,16 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        // chunks: ["home"],
+        chunks: ["home"],
         filename: "index.html",
         template: "./src/html/index.html",
       }),
-      // new HtmlWebpackPlugin({
-      //   chunks: ["app"],
-      //   filename: "app.html",
-      //   template: "src/html/app.html",
-      // }),
+      new HtmlWebpackPlugin({
+        title: "Mobile Design",
+        chunks: ["test"],
+        filename: "test.html",
+        template: "./src/html/test.html",
+      }),
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional

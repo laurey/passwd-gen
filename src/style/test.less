@@ -1,10 +1,28 @@
-.big-button {
-  width: 100%;
-  padding: 8px 0;
-  background: hotPink;
-  border: 3px dotted purple;
-  font-size: 18px;
-  color: #fff;
-  border-radius: 20px;
-  box-shadow: #111 3px 4px 0px;
+.container {
+  background-color: darkcyan;
+  &.box {
+    background-color: goldenrod;
+  }
+  .big-button {
+    width: 100%;
+    padding: 8px 0;
+    background: hotPink;
+    border: 3px dotted purple;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: #111 3px 4px 0px;
+  }
+}
+
+.wrapper {
+  background-color: aquamarine;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    .big-button {
+      width: 480px;
+    }
+  }
 }

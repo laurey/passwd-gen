@@ -1,7 +1,11 @@
 .container {
   background-color: darkcyan;
   &.box {
-    background-color: goldenrod;
+    background-color: rgba(194, 194, 204, 0.5);
+    .flexbox {
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .big-button {
     width: 100%;
@@ -12,11 +16,46 @@
     color: #fff;
     border-radius: 20px;
     box-shadow: #111 3px 4px 0px;
+    transform: scale(1.5);
   }
 }
 
 .wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 100px;
+  grid-gap: 10px;
+  grid-auto-flow: dense;
+}
+
+.wrapper > div:nth-child(2) {
+  grid-column: 3;
+  grid-row: 2 / 4;
+  background-color: darkmagenta;
+}
+
+.wrapper > div:nth-child(5) {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
   background-color: aquamarine;
+}
+
+.wrapper > div {
+  border: 2px solid rgb(233, 171, 88);
+  border-radius: 5px;
+  background-color: rgba(233, 171, 88, 0.5);
+  padding: 1em;
+  color: #d9480f;
+}
+
+.wrapper div:nth-child(4n + 1) {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+  background-color: #ffa94d;
+}
+
+::placeholder {
+  color: gray;
 }
 
 @media only screen and (min-width: 768px) {

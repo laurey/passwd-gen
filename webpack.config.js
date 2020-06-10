@@ -78,14 +78,30 @@ module.exports = (env) => {
         {
           test: /\.less$/,
           use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: devMode,
-              },
-            },
+            devMode
+              ? "style-loader"
+              : {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: {
+                    hmr: devMode,
+                  },
+                },
             {
               loader: "css-loader",
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                config: {
+                  path: resolve(__dirname),
+                },
+                plugins: [
+                  require("autoprefixer")({
+                    grid: "autoplace",
+                    flexbox: true,
+                  }),
+                ],
+              },
             },
             {
               loader: "less-loader",
@@ -98,19 +114,22 @@ module.exports = (env) => {
         {
           test: /\.css$/,
           use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                // publicPath: "../",
-                hmr: devMode,
-              },
-            },
+            devMode
+              ? "style-loader"
+              : {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: {
+                    // you can specify a publicPath here
+                    // by default it uses publicPath in webpackOptions.output
+                    // publicPath: "../",
+                    hmr: devMode,
+                  },
+                },
             { loader: "css-loader", options: { importLoaders: 1 } },
-            "postcss-loader",
+            {
+              loader: "postcss-loader",
+            },
           ],
-          // fallback: "style-loader",
           exclude: /node_modules/,
         },
       ],
@@ -120,7 +139,7 @@ module.exports = (env) => {
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         chunks: ["home"],
-        filename: "index.html",
+        filename: "home.html",
         template: "./src/html/index.html",
       }),
       new HtmlWebpackPlugin({

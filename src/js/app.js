@@ -5,6 +5,7 @@ const clipboard = document.getElementById("clipboard");
 const generateEl = document.getElementById("generate");
 const modeEl = document.getElementsByName("mode");
 
+const tipEl = document.querySelector("#tip");
 const basicContainer = document.getElementById("basic-panel");
 const lengthEl = basicContainer.querySelector("#length");
 const uppercaseEl = basicContainer.querySelector("#uppercase");
@@ -27,7 +28,25 @@ const randomFunc = {
 
 let mode = "1";
 
-clipboard.addEventListener("click", () => {
+// tipEl.addEventListener("animationstart", listener, false);
+// tipEl.addEventListener("animationiteration", listener, false);
+tipEl.addEventListener("animationend", listener, false);
+
+function listener(e) {
+  switch (event.type) {
+    case "animationstart":
+      break;
+    case "animationend":
+      e.target.classList.remove("show");
+      break;
+    case "animationiteration":
+      break;
+  }
+}
+
+clipboard.addEventListener("click", debounce(ClipCopyPassword, 100));
+
+function ClipCopyPassword() {
   const textarea = document.createElement("textarea");
   const password = resultEl.innerText;
 
@@ -40,7 +59,8 @@ clipboard.addEventListener("click", () => {
   textarea.select();
   document.execCommand("copy");
   textarea.remove();
-});
+  tipEl.classList.add("show");
+}
 
 Array.prototype.forEach.call(modeEl, function (radio) {
   radio.addEventListener("change", function () {
@@ -68,6 +88,19 @@ lengthEl.addEventListener("change", function (e) {
   const length = +lengthEl.value;
   document.getElementById("len").textContent = length;
 });
+
+function debounce(fn, timeout) {
+  let last = null;
+  return function _debounced() {
+    if (last) {
+      clearTimeout(last);
+    }
+
+    last = setTimeout(() => {
+      fn.apply(this, arguments);
+    }, timeout);
+  };
+}
 
 function generatePassword(lower, upper, number, symbol, length) {
   let generatedPassword = "";

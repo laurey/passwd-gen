@@ -10,6 +10,9 @@
 </head>
 
 <body class="flex">
+  <p class="tip" id="tip">
+    <span>Password was Copied!</span>
+  </p>
   <div class="container" id="app">
     <h2>Random Password Generator</h2>
     <div class="result-container">
@@ -18,6 +21,7 @@
         <i class="far fa-clipboard"></i>
       </button>
     </div>
+
     <div class="setting-container flex">
       <div class="item flex">
         <label>Mode: </label>
@@ -31,12 +35,12 @@
         </div>
       </div>
       <div class="basic-panel flex" id="basic-panel">
-        <div class="item flex">
+        <div class="item length-item-wrapper flex">
           <label>Length: <span id="len" class="len-result">10</span></label>
           <div class="length-item flex">
-            <span>7</span>
-            <input type="range" id="length" min="7" max="36" value="10" />
-            <span>36</span>
+            <span class="range min">7</span>
+            <input class="range" type="range" id="length" min="7" max="36" value="10" />
+            <span class="range max">36</span>
           </div>
         </div>
         <div class="item flex">
